@@ -1,3 +1,4 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -5,7 +6,7 @@ import time
 import unittest
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
 
@@ -24,7 +25,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # O jovem Marcos ouviu falar de um novo app online de tarefas
         # Ele foi saber mais acessando a pagina do app
-        self.browser.get("http://localhost:8000")
+        self.browser.get(self.live_server_url)
 
         # Ele percebe que o titulo da pagina menciona a lista de tarefas
         self.assertIn("To-Do", self.browser.title)
