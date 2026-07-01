@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from src.lists.models import Item, List
+from lists.models import Item, List
 
 
 def home_page(request):
