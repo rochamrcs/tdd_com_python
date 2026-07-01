@@ -1,5 +1,5 @@
 from django.urls import path
-from lists import views
+from src.lists import views
 
 urlpatterns = [
     path("new", views.new_list, name="new_list"),

@@ -1,7 +1,7 @@
 from django.test import TestCase
 import lxml.html
 
-from lists.models import Item, List  
+from src.lists.models import Item, List  
 from .views import home_page, view_list
 
 
