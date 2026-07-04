@@ -10,4 +10,6 @@ COPY src /src
 
 WORKDIR /src
 
-CMD ["python", "manage.py", "runserver", "8888"]
+RUN python manage.py migrate --noinput
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8888"]
