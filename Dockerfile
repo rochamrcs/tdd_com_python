@@ -12,4 +12,4 @@ WORKDIR /src
 
 RUN python manage.py migrate --noinput
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8888"]
+CMD ["gunicorn", "--bind", ":8888", "superlists.wsgi:application"]
