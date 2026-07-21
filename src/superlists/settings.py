@@ -23,7 +23,16 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+if "SECRET_KEY" in os.environ:  
+    DEBUG = False
+    SECRET_KEY = os.environ["SECRET_KEY"]
+    ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
+    db_path = os.environ["DJANGO_DB_PATH"]  
+else:
+    DEBUG = True  
+    SECRET_KEY = "insecure-key-for-dev"
+    ALLOWED_HOSTS = []
+    db_path = BASE_DIR / "db.sqlite3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,7 +89,7 @@ WSGI_APPLICATION = 'superlists.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': db_path,
     }
 }
 
@@ -121,3 +130,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "static"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "loggers": {
+        "root": {"handlers": ["console"], "level": "INFO"},
+    },
+}
