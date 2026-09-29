@@ -12,8 +12,6 @@ WORKDIR /src
 
 RUN python manage.py collectstatic
 
-RUN python manage.py migrate --noinput
-
 ENV DJANGO_DEBUG_FALSE=1
 
 CMD ["gunicorn", "--bind", ":8888", "superlists.wsgi:application"]
